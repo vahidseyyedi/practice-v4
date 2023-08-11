@@ -3,13 +3,13 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-var north = 0;
-var south = 0;
-var east = 0;
-var west = 0;
-var y = 0;
-var x = 0;
-var result = "";
+let north = 0;
+let south = 0;
+let east = 0;
+let west = 0;
+let y = 0;
+let x = 0;
+let result = "";
 add();
 function add() {
     rl.question("Enter the direction(n:north / s:south / e:east / w:west)", (answer) => {

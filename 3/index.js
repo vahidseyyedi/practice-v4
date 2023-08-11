@@ -10,7 +10,7 @@ if(num <=0 )
     console.log("no");
     rl.close();
 }else{
-    var pro = 1;
+    let pro = 1;
 
     for (let i = num; i > 1; i--) {
         pro = pro * i;

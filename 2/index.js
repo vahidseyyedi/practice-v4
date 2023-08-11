@@ -1,5 +1,5 @@
-var arr = [];
-var outPut = [];
+let arr = [];
+let outPut = [];
 
 const readline = require('readline');
 const rl = readline.createInterface({
@@ -24,7 +24,7 @@ function add() {
 
 function primeNumber() {
     for (let i in arr) {
-        var index = false;
+        let index = false;
 
         for (let j = 2; j < arr[i]; j++) {
             if (arr[i] % j == 0) {
@@ -35,7 +35,7 @@ function primeNumber() {
             outPut.push(arr[i]);
         }
     }
-    var q = "";
+    let q = "";
     for (let i in outPut) {
         q += outPut[i] + "|";
         console.log(outPut[i])

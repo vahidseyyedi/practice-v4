@@ -31,7 +31,7 @@ class team {
         }
     }
 }
-var t;
+let t;
 rl.question("please enter team name : \n", (teamName) => {
     rl.question("please enter coach name : \n", (coachTeam) => {
         t = new team(teamName, coachTeam);
