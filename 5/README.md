@@ -1,0 +1,1 @@
+کد JavaScript شما از fetch استفاده می‌کند تا یک درخواست GET به URL https://jsonplaceholder.typicode.com/posts ارسال کند. سپس با استفاده از متد json() بر روی پاسخ دریافتی، داده‌های JSON را استخراج می‌کند.
