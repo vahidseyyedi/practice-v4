@@ -1,21 +1,21 @@
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
-let brushColor = "black";
-canvas.addEventListener("mousemove", draw);
-function draw(event) {
-    if (event.buttons !== 1) return;
-
-    const x = event.offsetX;
-    const y = event.offsetY;
-
-    context.fillStyle = brushColor;
-    context.fillRect(x, y, 5, 5);
-}
-const colorButtons = document.querySelectorAll(".color-button");
-colorButtons.forEach(button => {
-    button.addEventListener("click", changeBrushColor);
-});
-
-function changeBrushColor(event) {
-    brushColor = event.target.style.backgroundColor;
-}
+function fetchContents(urls) {
+    const promises = urls.map(url => fetch(url).then(response => response.text()));
+    return Promise.all(promises);
+  }
+  
+  async function logContents() {
+    const urls = [
+      'https://example.com/url1',
+      'https://example.com/url2',
+      'https://example.com/url3'
+    ];
+  
+    try {
+      const contents = await fetchContents(urls);
+      console.log("content : \n", contents);
+    } catch (error) {
+      console.error("error", error);
+    }
+  }
+  
+  logContents();

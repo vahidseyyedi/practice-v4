@@ -3,51 +3,36 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-let north = 0;
-let south = 0;
-let east = 0;
-let west = 0;
-let y = 0;
-let x = 0;
-let result = "";
-add();
-function add() {
-    rl.question("Enter the direction(n:north / s:south / e:east / w:west)", (answer) => {
-        switch (answer) {
-            case "n": north++; break;
-            case "s": south++; break;
-            case "e": east++; break;
-            case "w": west++; break;
-            default: alert("no");
-        }
-        rl.question("continue?(y/n)", (an) => {
-            if (an == "y" || an == "n") {
-                if (an == "y") {
-                    add();
-                }
-                else {
-                    res();
-                }
-            } else {
-                rl.close();
-            }
-        });
-    });
-
-}
-
-function res() {
-    y = north - south;
-    x = east - west;
-    if (y > 0) {
-        result += "north =" + y + "|";
+let divisonH;
+let leftOverH;
+let min;
+let leftOverM;
+let leftOverS;
+let re;
+rl.question("please enter time : \n", (time) => {
+    if (time < 0 || time > 359999) {
+        console.log("no");
     } else {
-        result += "south =" + Math.abs(y) + "|";
+        divisonH = Math.floor(time / 3600);
+        leftOverH = time % 3600;
+        min = Math.floor(leftOverH / 60);
+        leftOverM = leftOverH % 60;
+        leftOverS = Math.floor(leftOverM % 60);
+        check(divisonH, min, leftOverS);
     }
-    if (x > 0) {
-        result += "east =" + x;
-    } else {
-        result += "west =" + Math.abs(x);
+});
+
+function check(hour, min, sec) {
+    if (hour < 10) {
+        hour = "0" + hour;
     }
-    console.log(result);
+    if (min < 10) {
+        min = "0" + min;
+    }
+    if (sec < 10) {
+        sec = "0" + sec;
+    }
+    re = `${hour} : ${min} : ${sec}`
+    console.log(re);
+    rl.close();
 }
