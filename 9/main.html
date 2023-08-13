@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Drawing App</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+        .color-button {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <div>
+        <button class="color-button" style="background-color: red;"></button>
+        <button class="color-button" style="background-color: blue;"></button>
+        <button class="color-button" style="background-color: green;"></button>
+        <button class="color-button" style="background-color: yellow;"></button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
