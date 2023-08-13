@@ -48,6 +48,7 @@ async function receive() {
         await receive();
     }else{
         saveBooks();
+        rl.close();
     }
 }
 
