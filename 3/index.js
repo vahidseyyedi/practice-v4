@@ -4,18 +4,23 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-rl.question("please enter number: \n" , (num)=>{
-if(num <=0 )
-{
-    console.log("no");
-    rl.close();
-}else{
-    let pro = 1;
+function receive
 
-    for (let i = num; i > 1; i--) {
-        pro = pro * i;
-    }
-    console.log("answer:" + pro);
-}
-});
+
+
+
+// rl.question("please enter number: \n" , (num)=>{
+// if(num <=0 )
+// {
+//     console.log("no");
+//     rl.close();
+// }else{
+//     let pro = 1;
+
+//     for (let i = num; i > 1; i--) {
+//         pro = pro * i;
+//     }
+//     console.log("answer:" + pro);
+// }
+// });
 

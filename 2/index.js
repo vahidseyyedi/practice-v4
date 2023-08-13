@@ -8,8 +8,8 @@ const rl = readline.createInterface({
 });
 
 
-function recei() {
-    return new Promise((receive, rejects) => {
+function receive() {
+    return new Promise((resolve, rejects) => {
         rl.question("please enter number :(exit : n) \n", (answer) => {
             if (answer == "n") {
                 entrance();
@@ -17,7 +17,7 @@ function recei() {
                 rl.close();
             } else {
                 input.push(answer);
-                recei();
+                receive();
             }
         });
     });
@@ -51,5 +51,5 @@ function show() {
     console.log(outPut);
 }
 
-recei();
+receive();
 
