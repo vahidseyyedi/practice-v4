@@ -1,43 +1,55 @@
-let arr = [];
+let input = [];
 let outPut = [];
-
+const { rejects } = require('assert');
 const readline = require('readline');
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-add();
-function add() {
-    rl.question("please enter number : \n", (num) => {
-        arr.push(num);
-        rl.question("continue?(y/n)", (answer) => {
-            if (answer == "y") {
-                add();
+
+
+function recei() {
+    return new Promise((receive, rejects) => {
+        rl.question("please enter number :(exit : n) \n", (answer) => {
+            if (answer == "n") {
+                entrance();
+                show();
+                rl.close();
             } else {
-                rl.question("show");
-                primeNumber();
+                input.push(answer);
+                recei();
             }
-        })
+        });
     });
-
 }
 
-function primeNumber() {
-    for (let i in arr) {
-        let index = false;
-
-        for (let j = 2; j < arr[i]; j++) {
-            if (arr[i] % j == 0) {
-                index = true;
-            }
+function entrance() {
+    for (let i in input) {
+        let result = check(input[i]);
+        if (result != false) {
+            outPut.push(result);
         }
-        if (index == false) {
-            outPut.push(arr[i]);
-        }
-    }
-    let q = "";
-    for (let i in outPut) {
-        q += outPut[i] + "|";
-        console.log(outPut[i])
     }
 }
+
+function check(number) {
+    let isPrime = false;
+    for (let i = 2; i < number; i++) {
+        if (number % i == 0) {
+            isPrime = true;
+        }
+    }
+    if (isPrime == true) {
+        return false;
+    } else {
+        return number;
+    }
+}
+
+function show() {
+    console.log("-------------------");
+    console.log(outPut);
+}
+
+recei();
+
