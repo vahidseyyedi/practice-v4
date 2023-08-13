@@ -7,5 +7,5 @@ fetch('https://jsonplaceholder.typicode.com/posts')
         console.log('public post', publicPosts);
     })
     .catch(error => {
-        console.error('error', error);
+        console.error('erRor', error);
     });
