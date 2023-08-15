@@ -1,10 +1,4 @@
 const { log } = require('console');
-const { resolve } = require('path');
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
 class player {
     constructor(name, age, position) {
         this.name = name;
@@ -34,98 +28,212 @@ class team {
 }
 let t;
 
-function receiveTeamName() {
+function getString(question) {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
     return new Promise((resolve, reject) => {
-        rl.question("please enter team name: \n", (teamName) => {
-            resolve(teamName);
+        rl.question(question, (answer) => {
+            if (!Object.is(NaN, answer)) {
+                resolve(answer);
+            } else {
+                reject("not string");
+            }
+            rl.close();
         });
     });
 }
 
-function receiveCoachName() {
+function getInt(question) {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
     return new Promise((resolve, reject) => {
-        rl.question("please enter coach name: \n", (coachName) => {
-            resolve(coachName);
+        rl.question(question, (answer) => {
+            if (!Object.is(NaN, parseInt(answer))) {
+                resolve(parseInt(answer));
+            } else {
+                reject("not string");
+            }
+            rl.close();
         });
     });
+
 }
 
-function receiveNumberPlayer() {
-    return new Promise((resolve, reject) => {
-        rl.question("please enter number of players: \n", (number) => {
-            resolve(number);
-        });
-    });
-}
 
 async function addTeam() {
-    const teamName = await receiveTeamName();
-    const coachName = await receiveCoachName();
-    const numberPlayers = await receiveNumberPlayer();
-    t = new team(teamName, coachName);
-    console.log("save");
-    addPlayerTeam(numberPlayers);
-}
+    try {
 
-function receiveNamePlayer() {
-    return new Promise((resolve) => {
-        rl.question("Enter player name:", (name) => {
-            resolve(name);
-        });
-    });
-}
+        const teamName = await getString("please enter team name: \n");
+        const coachName = await getString("please enter coach name: \n");
+        const numberPlayer = await getInt("please enter number of players: \n");
+        t = new team(teamName, coachName);
+        console.log("save");
+        addPlayerTeam(numberPlayer);
+    } catch (err) {
+        console.log(err);
+    }
 
-function receiveAgePlayer() {
-    return new Promise((resolve) => {
-        rl.question("Enter player age:", (age) => {
-            resolve(age);
-        });
-    });
-}
-
-function receivePositionPlayer() {
-    return new Promise((resolve) => {
-        rl.question("Enter player position:", (position) => {
-            resolve(position);
-        });
-    });
 }
 
 async function addPlayerTeam(number) {
-    if (number == 0) {
-        console.log("compleate");
-        remove();
-    } else {
-        const name = await receiveNamePlayer();
-        const age = await receiveAgePlayer();
-        const position = await receivePositionPlayer();
-        const player1 = new player(name, age, position);
-        t.addPlayer(player1);
-        console.log(player1);
-        console.log("----------------------");
-        addPlayerTeam(number - 1);
+    try {
+        if (number != 0) {
+            const playerName = await getString("please enter player name: \n");
+            const playerAge = await getInt("please enter player age: \n");
+            const playerPosition = await getString("please enter player position: \n");
+            const player1 = new player(playerName, playerAge, playerPosition);
+            t.addPlayer(player1);
+            console.log(player1);
+            console.log("----------------------");
+            addPlayerTeam(number - 1);
+        } else {
+            console.log("\n compleate add player \n");
+            remove();
+        }
+    } catch (err) {
+        console.log(err);
     }
 }
 
-function receiveNameRemove() {
-    return new Promise((resolve) => {
-        rl.question("please enter name for remove :", (name) => {
-            t.removePlayer(name);
-            resolve(name);
-        });
-    });
-}
-
-function remove() {
-    rl.question("Do you want to remove the player? (y/n)", async (answer) => {
-        if (answer == "y") {
-            console.log(await receiveNameRemove());
+async function remove() {
+    try {
+        const removeQ = await getString("Do you want to remove the player? (y/n)");
+        if (removeQ == "y") {
+            const removeQN = await getString("please enter name for remove :");
+            t.removePlayer(removeQN);
             t.selectall();
-            rl.close();
         } else {
             console.log("ok");
-            rl.close();
         }
-    });
+    } catch (err) {
+        console.log(":(");
+    }
+
 }
+
+
+
 addTeam();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function receiveTeamName() {
+//     return new Promise((resolve, reject) => {
+//         rl.question("please enter team name: \n", (teamName) => {
+//             resolve(teamName);
+//         });
+//     });
+// }
+
+// function receiveCoachName() {
+//     return new Promise((resolve, reject) => {
+//         rl.question("please enter coach name: \n", (coachName) => {
+//             resolve(coachName);
+//         });
+//     });
+// }
+
+// function receiveNumberPlayer() {
+//     return new Promise((resolve, reject) => {
+//         rl.question("please enter number of players: \n", (number) => {
+//             resolve(number);
+//         });
+//     });
+// }
+
+// async function addTeam() {
+//     const teamName = await receiveTeamName();
+//     const coachName = await receiveCoachName();
+//     const numberPlayers = await receiveNumberPlayer();
+//     t = new team(teamName, coachName);
+//     console.log("save");
+//     addPlayerTeam(numberPlayers);
+// }
+
+// function receiveNamePlayer() {
+//     return new Promise((resolve) => {
+//         rl.question("Enter player name:", (name) => {
+//             resolve(name);
+//         });
+//     });
+// }
+
+// function receiveAgePlayer() {
+//     return new Promise((resolve) => {
+//         rl.question("Enter player age:", (age) => {
+//             resolve(age);
+//         });
+//     });
+// }
+
+// function receivePositionPlayer() {
+//     return new Promise((resolve) => {
+//         rl.question("Enter player position:", (position) => {
+//             resolve(position);
+//         });
+//     });
+// }
+
+// async function addPlayerTeam(number) {
+//     if (number == 0) {
+//         console.log("compleate");
+//         remove();
+//     } else {
+//         const name = await receiveNamePlayer();
+//         const age = await receiveAgePlayer();
+//         const position = await receivePositionPlayer();
+//         const player1 = new player(name, age, position);
+//         t.addPlayer(player1);
+//         console.log(player1);
+//         console.log("----------------------");
+//         addPlayerTeam(number - 1);
+//     }
+// }
+
+// function receiveNameRemove() {
+//     return new Promise((resolve) => {
+//         rl.question("please enter name for remove :", (name) => {
+//             t.removePlayer(name);
+//             resolve(name);
+//         });
+//     });
+// }
+
+// function remove() {
+//     rl.question("Do you want to remove the player? (y/n)", async (answer) => {
+//         if (answer == "y") {
+//             console.log(await receiveNameRemove());
+//             t.selectall();
+//             rl.close();
+//         } else {
+//             console.log("ok");
+//             rl.close();
+//         }
+//     });
+// }
+// addTeam();
