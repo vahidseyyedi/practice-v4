@@ -1,54 +1,63 @@
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+
 const fs = require('fs');
 let arrBooks = [];
 
-function receiveTitle() {
-    return new Promise((resolve) => {
-        rl.question("Book Title:", (answer) => {
-            resolve(answer);
+function getString(question) {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    return new Promise((resolve, reject) => {
+        rl.question(question, (answer) => {
+            if (!Object.is("", answer)) {
+                resolve(answer);
+            } else {
+                reject("not string");
+            }
+            rl.close();
         });
     });
 }
 
-function receiveAuthor() {
-    return new Promise((resolve) => {
-        rl.question("Book Author:", (answer) => {
-            resolve(answer);
+function getInt(question) {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    return new Promise((resolve, reject) => {
+        rl.question(question, (answer) => {
+            if(answer == ""){
+                reject("null");
+            }else{
+                if (!Object.is(NaN, parseInt(answer))) {
+                resolve(parseInt(answer));
+            } else {
+                reject("not string");
+            }
+            }
+            rl.close();
         });
     });
+
 }
 
-function receivePages() {
-    return new Promise((resolve) => {
-        rl.question("Book Pages:", (answer) => {
-            resolve(answer);
-        });
-    });
-}
-
-function continueApp() {
-    return new Promise((resolve) => {
-        rl.question("continue:(y/n)", (answer) => {
-            resolve(answer);
-        });
-    });
-}
 
 async function receive() {
-    let bookTitle = await receiveTitle();
-    let bookAuthor = await receiveAuthor();
-    let bookPages = await receivePages();
-    const result = await continueApp();
+    try{
+        let bookTitle = await getString("enter book title: \n");
+    let bookAuthor = await getString("enter book author: \n");
+    let bookPages = await getInt("enter book pages: \n")
+    const result = await getString("continue:(y/n) \n");
     addBook(bookTitle , bookAuthor , bookPages);
     if(result == "y"){
-        await receive();
+         receive();
     }else{
         saveBooks();
-        rl.close();
+    }
+    }catch(err){
+        console.log(err);
     }
 }
 
@@ -72,53 +81,3 @@ function saveBooks() {
 }
 
 receive();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// addBook();
-
-// function addBook() {
-//     let book = {};
-//     rl.question("Book title: ", (bookTitle) => {
-//         rl.question("Book author: ", (bookAuthor) => {
-//             rl.question("Book pages: ", (bookPages) => {
-//                 book.title = bookTitle;
-//                 book.author = bookAuthor;
-//                 book.pages = bookPages;
-//                 arrBooks.push(book);
-//                 console.log("-------------------");
-//                 console.log(arrBooks);
-//                 rl.question("Continue? (y/n): ", (answer) => {
-//                     if (answer === "y") {
-//                         addBook();
-//                     } else {
-//                         console.log("Save");
-//                         saveBooks();
-//                     }
-//                 });
-//             });
-//         });
-//     });
-// }
-
-// function saveBooks() {
-//     const jsonData = JSON.stringify(arrBooks);
-//     fs.writeFile("book.json", jsonData, (err) => {
-//         if (err) throw err;
-//         console.log("Books saved successfully.");
-//     });
-// }
