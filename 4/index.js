@@ -10,10 +10,10 @@ function getString(question) {
     });
     return new Promise((resolve, reject) => {
         rl.question(question, (answer) => {
-            if (!Object.is("", answer)) {
+            if (answer != "") {
                 resolve(answer);
             } else {
-                reject("not string");
+                reject("null");
             }
             rl.close();
         });
