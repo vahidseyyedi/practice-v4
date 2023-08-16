@@ -54,10 +54,14 @@ function getInt(question) {
     });
     return new Promise((resolve, reject) => {
         rl.question(question, (answer) => {
-            if (!Object.is(NaN, parseInt(answer)) || !Object.is("", answer)) {
+            if(answer == ""){
+                reject("null");
+            }else{
+                if (!Object.is(NaN, parseInt(answer))) {
                 resolve(parseInt(answer));
             } else {
                 reject("not string");
+            }
             }
             rl.close();
         });
