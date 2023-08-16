@@ -6,9 +6,9 @@ const rl = readline.createInterface({
 let pro = 1;
 
 function receive() {
-    return new Promise((resolve) => {
+    return new Promise((resolve , reject) => {
         rl.question("please enter number: \n", (answer) => {
-            resolve(answer);
+            if(an)
         });
     });
 }
@@ -35,19 +35,4 @@ function calc(number) {
 }
 
 verify();
-
-// rl.question("please enter number: \n" , (num)=>{
-// if(num <=0 )
-// {
-//     console.log("no");
-//     rl.close();
-// }else{
-//     let pro = 1;
-
-//     for (let i = num; i > 1; i--) {
-//         pro = pro * i;
-//     }
-//     console.log("answer:" + pro);
-// }
-// });
 

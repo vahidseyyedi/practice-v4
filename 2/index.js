@@ -22,6 +22,8 @@ function receive() {
                         rejects("no")
                     }
                 }
+            }else{
+                rejects("null");
             }
             rl.close();
         });
