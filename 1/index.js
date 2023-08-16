@@ -36,7 +36,7 @@ function getString(question) {
     });
     return new Promise((resolve, reject) => {
         rl.question(question, (answer) => {
-            if (!Object.is(NaN, answer)) {
+            if (!Object.is("", answer)) {
                 resolve(answer);
             } else {
                 reject("not string");
@@ -54,7 +54,7 @@ function getInt(question) {
     });
     return new Promise((resolve, reject) => {
         rl.question(question, (answer) => {
-            if (!Object.is(NaN, parseInt(answer))) {
+            if (!Object.is(NaN, parseInt(answer)) || !Object.is("", answer)) {
                 resolve(parseInt(answer));
             } else {
                 reject("not string");
