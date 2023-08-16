@@ -1,9 +1,3 @@
-const readline = require('readline');
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
 
 let north = 0;
 let south = 0;
@@ -13,46 +7,44 @@ let y = 0;
 let x = 0;
 let result = "";
 
-function message() {
-    return new Promise((resolve) => {
-        rl.question("Enter the direction (n: north / s: south / e: east / w: west / x: exit)\n", (answer) => {
-            switch (answer) {
-                case "n":
-                    north++;
-                    message().then(resolve);
-                    break;
-                case "s":
-                    south++;
-                    message().then(resolve);
-                    break;
-                case "e":
-                    east++;
-                    message().then(resolve);
-                    break;
-                case "w":
-                    west++;
-                    message().then(resolve);
-                    break;
-                case "x":
-                    resolve(true);
-                    break;
-                default:
-                    resolve(false);
+function getString(question) {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    return new Promise((resolve, reject) => {
+        rl.question(question, (answer) => {
+            if (answer != "") {
+                if (answer == "e" || answer == "s" || answer == "w" || answer == "n" || answer == "x") {
+                    resolve(answer);
+                } else {
+                    reject("not found");
+                }
+            } else {
+                reject("null");
             }
+            rl.close();
         });
     });
 }
 
-function show() {
-    return new Promise(async (resolve) => {
-        const shouldContinue = await message();
-        if (shouldContinue) {
-            calc();
-        } else {
-            console.log("Invalid direction. Please try again.");
-            show().then(resolve);
+
+
+async function verify() {
+    try {
+        const result = await getString("Enter the direction (n: north / s: south / e: east / w: west / x: exit)\n");
+        switch(result){
+            case "n" : {north++; verify();}break;
+            case "s" : {south++; verify();}break;
+            case "e" : {east++; verify();}break;
+            case "w" : {west++; verify();}break;
+            case "x" : {calc();}break;
+
         }
-    });
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 function calc() {
@@ -69,7 +61,6 @@ function calc() {
         result += "west =" + Math.abs(x);
     }
     console.log(result);
-    rl.close();
 }
 
-show();
+verify();
