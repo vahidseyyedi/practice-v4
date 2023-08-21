@@ -1,6 +1,6 @@
-let arr : number[] = [2 , 4];
+let q : number[] = [2 , 4];
 
-function test(ele){
+function sd(ele){
     console.log("ok" + ele);
     
 }
